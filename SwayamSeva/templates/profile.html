@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block content %}
+    <style>
+        body{
+            padding: 100px;
+        }
+    </style>
+    <div class="container-fluid d-flex flex-column">
+        <p class="m-auto p-3">Name: {% render_field user.first_name %} {% render_field user.last_name %}</p>
+        <p class="m-auto p-3">Aadhaar: {{ user.username }}</p>
+        <div class="d-flex flex-column">
+            <a class="m-auto" href="{% url 'password_change' %}">Change Password</a>
+        </div>
+    </div>
+{% endblock content %}

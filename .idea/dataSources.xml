@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="ddr5k9hn4phuma@ec2-54-228-99-58.eu-west-1.compute.amazonaws.com" uuid="84c11880-f3af-4c12-9cb4-4356d5c474d1">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-54-228-99-58.eu-west-1.compute.amazonaws.com:5432/ddr5k9hn4phuma</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="db_a7d2f9_swayam@mysql5045.site4now.net" uuid="97f8445f-1148-4038-9869-6e4fff5fbcf5">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://mysql5045.site4now.net:3306/db_a7d2f9_swayam</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="@mysql8001.site4now.net" uuid="c810a963-1d1f-4776-8047-892775a2b94c">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://mysql8001.site4now.net</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="d74oluunu47v57@ec2-52-48-159-67.eu-west-1.compute.amazonaws.com" uuid="e5e8a3de-2c4f-446f-904d-f90af3c8168d">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://ec2-52-48-159-67.eu-west-1.compute.amazonaws.com:5432/d74oluunu47v57</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>

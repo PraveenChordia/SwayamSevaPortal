@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!--Schemes Carousel starts-->
+<div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'img/Mnrega.jpeg' %}"
+                 class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'img/pds.jpeg' %}"
+                 class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'img/apy.jpeg' %}"
+                 class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<!--Schemes Carousel ends-->
+
+<!--Schemes Section starts-->
+<div class="container schemes">
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="{% static 'img/Mnrega.jpeg' %}" alt=""
+                 class="rounded-circle" width="140" height="140">
+            <h3>MGNREGA</h3>
+            <p>MGNREGA guarantees hundred days of wage employment in a
+                financial year, to a rural household whose adult members
+                volunteer to do unskilled manual work. MGNREGA provides
+                “Green” and “Decent” work. Social Audit of MGNREGA works is
+                mandatory, accountable & transparent.</p>
+            <p><a href="{% url 'apply' scheme='MGNREGA' %}" class="btn btn-primary">Apply Now &raquo;</a></p>
+        </div>
+        <div class="col-lg-4">
+            <img src="{% static 'img/pmjdy.jpeg' %}" alt=""
+                 class="rounded-circle" width="140" height="140">
+            <h3>PRADHAN MANTRI JAN-DHAN YOJANA</h3>
+            <p>Pradhan Mantri Jan-Dhan Yojana is a government scheme launched
+                by the government to provide easy access to financial
+                services such as Remittance, Credit, Insurance, Pension,
+                Savings & Deposit Accounts to poor & needy section
+                of our society.</p>
+            <p><a href="{% url 'apply' scheme='PMJDY'%}" class="btn btn-primary">Apply Now &raquo;</a></p>
+        </div>
+        <div class="col-lg-4">
+            <img src="{% static 'img/ssa.jpeg' %}" alt=""
+                 class="rounded-circle" width="140" height="140">
+            <h3>SARVA SHIKSHA ABHIYAN</h3>
+            <p>Sarva Shiksha Abhiyan is Government flagship programme
+                for achievement of Universalization of Elementary Education
+                in a time bound manner, as mandated by 86th amendment
+                to the Constitution of India making free and compulsory
+                Education to the Children of 6-14 years age group,
+                Fundamental Right.</p>
+            <p><a href="{% url 'apply' scheme='SSA'%}" class="btn btn-primary">Apply Now &raquo;</a></p>
+        </div>
+        <div class="col-lg-4">
+            <img src="{% static 'img/by.jpeg' %}" alt=""
+                 class="rounded-circle" width="140" height="140">
+            <h3>BHAMASHAH YOJANA</h3>
+            <p>Bhamashah Yojana is a scheme introduced by the Government of
+                Rajasthan to transfer financial and non-financial benefits of
+                governmental schemes directly to women recipients in a
+                transparent way.</p>
+            <p><a href="{% url 'apply' scheme='BY'%}" class="btn btn-primary">Apply Now &raquo;</a></p>
+        </div>
+        <div class="col-lg-4">
+            <img src="{% static 'img/pds.jpeg' %}" alt=""
+                 class="rounded-circle" width="140" height="140">
+            <h3>PUBLIC DISTRIBUTION SYSTEM</h3>
+            <p>Public distribution system is a government-sponsored chain of
+                shops entrusted with the work of distributing basic food and
+                non-food commodities to the needy sections of the society
+                at very cheap prices.</p>
+            <p><a href="{% url 'apply' scheme='PDS'%}" class="btn btn-primary">Apply Now &raquo;</a></p>
+        </div>
+        <div class="col-lg-4">
+            <img src="{% static 'img/apy.jpeg' %}" alt=""
+                 class="rounded-circle" width="140" height="140">
+            <h3>ATAL PENSION YOJANA</h3>
+            <p>Atal Pension Yojana, is
+                a government-backed pension scheme in India, primarily
+                targeted at the unorganised sector. It was mentioned in the
+                year 2015 Budget speech by the Finance Minister Arun Jaitley.</p>
+            <p><a href="{% url 'apply' scheme='APY'%}" class="btn btn-primary">Apply Now &raquo;</a></p>
+        </div>
+    </div>
+</div>
+<!--Schemes Section ends-->
+{% endblock %}

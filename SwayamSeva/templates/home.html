@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url('../static/img/home_bg_image.png');
+            background-size: cover;
+            background-position: center;
+            padding: 100px;
+            padding-bottom: 10px;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Times New Roman", serif /*rtl:Amiri, Georgia, "Times New Roman", serif*/;
+        }
+    </style>
+
+    <main class="container">
+        <div class="px-1 my-1">
+        <div class="px-1 py-5">
+            <div class="col-md-6 mx-left">
+                <h1 class="display-6 fst-italic" style="color: Black">Welcome to the SwayamSevaPortal</h1>
+                <h4 class="mb-4 fst-italic" style="color: Black">
+                    A single platform for different govt.(State/Central) schemes
+                </h4>
+            </div>
+        </div>
+    </main>
+
+
+{% endblock content %}

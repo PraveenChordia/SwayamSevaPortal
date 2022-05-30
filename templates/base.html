@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    .main {
+        min-height: 100vh;
+        height: 100%;
+    }
+    .footer{
+        max-height: 100px;
+    }
+</style>
+<head>
+    <title>Swayam Seva Platform</title>
+    {% include 'snippets/header.html' %}
+</head>
+<body>
+<div class="main">
+    {% block content %}
+
+    {% endblock content %}
+</div>
+{% include 'snippets/footer.html' %}
+</body>
+</html>

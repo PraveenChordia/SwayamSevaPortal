@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+    <link rel="stylesheet" href={% static 'css/form.css' %}>
+    <style>
+        body {
+            background-image: url('../static/img/register.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+    <form method="POST" class="form-signin" , enctype="multipart/form-data">
+        <h3 class="h mb-3 fw-normal" style="color: darkblue">Registration</h3>
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-floating">
+                {% render_field field class="form-control" %}
+                <label class="form-floating" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {% for error in field.errors %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endfor %}
+            </div>
+
+        {% endfor %}
+        {% for field in form.non_field_errors %}
+            <p style="color: red;">{{ field }}</p>
+        {% endfor %}
+        <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+    </form>
+{% endblock content %}

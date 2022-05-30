@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href={% static 'css/form.css' %}>
+    <form method="POST" class="form-signin" enctype="multipart/form-data">
+        <h3 class="h3 mb-3 fw-normal" style="color: darkblue">You are applying for {{ context.scheme }}</h3>
+        <div class="form-control">{{ request.user.first_name }}'s Details</div>
+
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-floating">
+                {% render_field field class="form-control" %}
+                <label class="form-floating" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {% for error in field.errors %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        {% for field in form.non_field_errors %}
+            <p style="color: red;">{{ field }}</p>
+        {% endfor %}
+        <button type="submit" class="w-100 btn btn-lg btn-success">Submit</button>
+    </form>
+{% endblock content %}

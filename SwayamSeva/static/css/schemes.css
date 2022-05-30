@@ -1,0 +1,62 @@
+body{
+    padding-bottom: 20px;
+    color: #5a5a5a;
+}
+
+.navbar-wrapper{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 20;
+}
+
+.navbar-wrapper > .container{
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.navbar-wrapper .navbar{
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.navbar-wrapper .navbar .container{
+    width: auto;
+}
+
+.carousel{
+    height: 500px;
+    margin-top: 50px;
+}
+
+.carousel-inner > .carousel-item{
+    height: 500px;
+}
+
+.carousel-inner > .carousel-item > img{
+    position: absolute;
+    height: 500px;
+    min-width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.schemes .col-lg-4{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.schemes h3{
+    margin-top: 10px;
+}
+
+.schemes p{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+footer{
+    margin-top: 20px;
+    text-align: center;
+}
