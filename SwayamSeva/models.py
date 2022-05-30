@@ -9,7 +9,7 @@ from django.core.validators import RegexValidator
 
 class UserDetails(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(verbose_name='Aadhaar', max_length=12, primary_key=True)
-    email = models.EmailField(verbose_name='Email', max_length=127)
+    EMAIL = models.EmailField(verbose_name='Email', max_length=127)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     date_joined = models.DateTimeField(verbose_name='date joined', auto_now_add=True)

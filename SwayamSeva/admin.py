@@ -4,14 +4,14 @@ from django.contrib.auth.admin import UserAdmin
 
 
 class MyUserAdmin(UserAdmin):
-    list_display = ('username', 'email', 'first_name',
+    list_display = ('username', 'EMAIL', 'first_name',
                     'date_joined', 'last_login', 'is_staff', 'is_active')
-    search_fields = ('username', 'email', 'first_name ')
+    search_fields = ('username', 'EMAIL', 'first_name ')
     readonly_fields = ('date_joined', 'last_login',)
-    list_filter = ('username', 'email', 'first_name', 'is_active', 'is_staff')
+    list_filter = ('username', 'EMAIL', 'first_name', 'is_active', 'is_staff')
 
     filter_horizontal = ('groups', 'user_permissions')
-    fieldsets = ((None, {'fields': ('username', 'email', 'first_name',
+    fieldsets = ((None, {'fields': ('username', 'EMAIL', 'first_name',
                                     'last_name')}),
                  ('Permissions', {'fields': ('is_staff', 'is_active',
                                              'groups', 'user_permissions')}),

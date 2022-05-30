@@ -11,7 +11,7 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = UserDetails
-        fields = ('username', 'email', 'first_name', 'last_name', 'password1', 'password2')
+        fields = ('username', 'EMAIL', 'first_name', 'last_name', 'password1', 'password2')
 
     def clean_username(self):
         if not Validate(self.cleaned_data['username']):
