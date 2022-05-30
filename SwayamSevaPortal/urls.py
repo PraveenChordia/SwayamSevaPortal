@@ -44,9 +44,9 @@ urlpatterns = [
     path('apply/<scheme>', apply_view, name='apply'),
     path('submitdoc/<scheme>', docs_view, name='docs'),
     path('return/<context>', return_view, name='return'),
-    path('activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/', activate_view,
-         name='activate'),
     path('profile', profile_view, name='profile'),
+    url('activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/', activate_view,
+         name='activate'),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 
