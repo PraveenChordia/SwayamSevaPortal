@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-
+from django.contrib.auth.decorators import login_required
 from SwayamSeva.forms import RegistrationForm, LoginForm, ApplicationForm
 from SwayamSeva.IndirectUseFiles.doc_forms import *
 from SwayamSeva.models import CompleteUserDetails, UserDetails, Schemes
@@ -95,6 +95,7 @@ def login_view(request):
     return render(request, 'login.html', {'form': form})
 
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect('home')
@@ -104,6 +105,7 @@ def schemes_view(request):
     return render(request, 'schemes.html')
 
 
+@login_required
 def apply_view(request, scheme):
     context = {'scheme': scheme}
     if request.user.is_authenticated:
@@ -140,6 +142,7 @@ def apply_view(request, scheme):
         return redirect('login')
 
 
+@login_required
 def docs_view(request, scheme):
     context = {'scheme': scheme}
     default = {}
@@ -181,11 +184,13 @@ def docs_view(request, scheme):
         return redirect('login')
 
 
+@login_required
 def return_view(request, context):
     msg = context[2:-2].split(':')
     return render(request, 'notice.html', {'notice': msg[1]})
 
 
+@login_required
 def profile_view(request):
     context = {}
     if request.user.is_authenticated:

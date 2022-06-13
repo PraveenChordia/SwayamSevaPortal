@@ -40,7 +40,6 @@ class UserDetails(AbstractBaseUser, PermissionsMixin):
         return True
 
 
-
 class CompleteUserDetails(models.Model):
     Sex = (
         ('M', 'Male'),
@@ -69,7 +68,7 @@ class CompleteUserDetails(models.Model):
 
 class Documents(models.Model):
     Did = models.AutoField(primary_key=True)
-    Uid = models.ForeignKey('CompleteUserDetails', related_name='Doc_set', on_delete=models.CASCADE)
+    Uid = models.ForeignKey('CompleteUserDetails', related_name='Doc_set', null=False, on_delete=models.CASCADE)
     Pan_no = models.CharField(max_length=15, null=True)
     BPL_no = models.CharField(max_length=15, null=True)
     Ration_no = models.CharField(max_length=15, null=True)
@@ -88,9 +87,14 @@ class Documents(models.Model):
 
 
 class Schemes(models.Model):
+    status_choices = (
+        ('Pending', 'Pending'),
+        ('In Process', 'In Process'),
+        ('Approved', 'Approved'))
     Sid = models.AutoField(primary_key=True)
     Scheme_Name = models.CharField(max_length=15)
     Aadhaar = models.ForeignKey('UserDetails', on_delete=models.CASCADE)
+    Status = models.CharField(max_length=15, verbose_name='Status', choices=status_choices, default='Pending')
     Date_Applied = models.DateTimeField(verbose_name='Date Applied', auto_now_add=True)
 
     class Meta:

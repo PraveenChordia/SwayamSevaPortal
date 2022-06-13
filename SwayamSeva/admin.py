@@ -21,7 +21,7 @@ class MyUserAdmin(UserAdmin):
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
         disabled_fields = set()
-        s_fields = 'is_active'
+        # s_fields = 'is_active'
 
         if not request.user.is_superuser or not request.user.is_admin:
             disabled_fields |= {
@@ -52,8 +52,8 @@ class MyUserAdmin(UserAdmin):
 
 
 class MySchemes(admin.ModelAdmin):
-    list_display = ('Aadhaar', 'Scheme_Name', 'Date_Applied')
-    search_fields = ('Scheme_Name', 'Aadhaar')
+    list_display = ('Aadhaar', 'Scheme_Name', 'Status', 'Date_Applied')
+    search_fields = ('Scheme_Name', 'Aadhaar', 'Status')
     readonly_fields = ('Date_Applied',)
 
     filter_horizontal = ()
@@ -72,12 +72,16 @@ class MyDocuments(admin.ModelAdmin):
 
 
 class MyCompleteUserDetails(admin.ModelAdmin):
-    list_display = [field.name for field in CompleteUserDetails._meta.get_fields()]
-    search_fields = ('UDid', 'Aadhaar', 'F_name',)
+    list_display = ('UDid', 'Aadhaar', 'F_name', 'Date_Submitted')
+
+    search_fields = ('UDid', 'Aadhaar', 'F_name')
     readonly_fields = ('UDid', 'Date_Submitted')
+    filter_horizontal = ()
+    list_filter = ()
+    fieldsets = ()
 
 
+admin.site.register(CompleteUserDetails, MyCompleteUserDetails)
 admin.site.register(UserDetails, MyUserAdmin)
 admin.site.register(Schemes, MySchemes)
 admin.site.register(Documents, MyDocuments)
-admin.site.register(CompleteUserDetails, MyCompleteUserDetails)

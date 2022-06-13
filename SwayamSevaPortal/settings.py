@@ -139,4 +139,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/static/'
 # Extra places for collectstatic to find static files.
 
+SECURE_HSTS_SECONDS = 300
+
 django_heroku.settings(locals())
