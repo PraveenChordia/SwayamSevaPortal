@@ -1,3 +1,4 @@
+from PIL import Image
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, \
     PermissionsMixin, Permission
@@ -21,7 +22,7 @@ class UserDetails(AbstractBaseUser, PermissionsMixin):
     about = models.TextField(_('about'), max_length=500, blank=True, null=True)
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['EMAIL', 'first_name', 'last_name']
     EMAIL_FIELD = 'EMAIL'
     objects = UserManager()
 
@@ -38,6 +39,25 @@ class UserDetails(AbstractBaseUser, PermissionsMixin):
 
     def has_module_perms(self, app_lable):
         return True
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(UserDetails, related_name='profile', on_delete=models.CASCADE)
+    avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
+
+    def __str__(self):
+        return self.pro_user.username
+
+    # resizing images
+    def save(self, *args, **kwargs):
+        super().save()
+
+        img = Image.open(self.avatar.path)
+
+        if img.height > 100 or img.width > 100:
+            new_img = (100, 100)
+            img.thumbnail(new_img)
+            img.save(self.avatar.path)
 
 
 class CompleteUserDetails(models.Model):
@@ -68,7 +88,7 @@ class CompleteUserDetails(models.Model):
 
 class Documents(models.Model):
     Did = models.AutoField(primary_key=True)
-    Uid = models.ForeignKey('CompleteUserDetails', related_name='Doc_set', null=False, on_delete=models.CASCADE)
+    Uid = models.OneToOneField('UserDetails', related_name='Doc_set', on_delete=models.CASCADE)
     Pan_no = models.CharField(max_length=15, null=True)
     BPL_no = models.CharField(max_length=15, null=True)
     Ration_no = models.CharField(max_length=15, null=True)

@@ -1,13 +1,13 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
-from SwayamSeva.models import UserDetails, CompleteUserDetails
+from SwayamSeva.models import UserDetails, CompleteUserDetails, Profile, Documents
 from SwayamSeva.IndirectUseFiles.aValidate import Validate
 
 
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(max_length=12, help_text='Required. Enter a valid Aadhaar', label='Aadhaar')
-    email = forms.CharField(max_length=127, help_text='Required. Enter a valid Email')
+    email = forms.EmailField(max_length=127, help_text='Required. Enter a valid Email')
 
     class Meta:
         model = UserDetails
@@ -17,6 +17,7 @@ class RegistrationForm(UserCreationForm):
         if not Validate(self.cleaned_data['username']):
             raise forms.ValidationError('Invalid Aadhaar Number')
         return self.cleaned_data['username']
+
 
 class LoginForm(forms.ModelForm):
     username = forms.CharField(max_length=12, help_text='Required', label='Aadhaar')
@@ -50,3 +51,31 @@ class ApplicationForm(forms.ModelForm):
         aadhaar = self.cleaned_data['Aadhaar']
         user = UserDetails.objects.get(username=aadhaar)
         return user
+
+
+class DocumentForm(forms.ModelForm):
+    Uid = forms.ModelChoiceField(queryset=CompleteUserDetails.objects.all(), widget=forms.HiddenInput, disabled=True,
+                                 label='')
+
+    class Meta:
+        model = Documents
+        fields = '__all__'
+
+
+class UpdateUserForm(forms.ModelForm):
+    username = forms.CharField(max_length=12, disabled=True)
+    EMAIL = forms.EmailField(max_length=127, required=True, help_text='Enter a valid email')
+    first_name = forms.CharField(max_length=50, required=True)
+    last_name = forms.CharField(max_length=50, required=True)
+
+    class Meta:
+        model = UserDetails
+        fields = ['username', 'EMAIL', 'first_name', 'last_name',]
+
+
+class UpdateProfileForm(forms.ModelForm):
+    avatar = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
+
+    class Meta:
+        model = Profile
+        fields = ['avatar']

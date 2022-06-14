@@ -1,5 +1,5 @@
 from django.contrib import admin
-from SwayamSeva.models import UserDetails, Schemes, Documents, CompleteUserDetails
+from SwayamSeva.models import UserDetails, Schemes, Documents, CompleteUserDetails, Profile
 from django.contrib.auth.admin import UserAdmin
 
 
@@ -51,6 +51,11 @@ class MyUserAdmin(UserAdmin):
         return request.user.is_superuser
 
 
+class MyProfile(admin.ModelAdmin):
+    list_display = [field.name for field in Profile._meta.get_fields()]
+    search_fields = ('user',)
+
+
 class MySchemes(admin.ModelAdmin):
     list_display = ('Aadhaar', 'Scheme_Name', 'Status', 'Date_Applied')
     search_fields = ('Scheme_Name', 'Aadhaar', 'Status')
@@ -81,7 +86,8 @@ class MyCompleteUserDetails(admin.ModelAdmin):
     fieldsets = ()
 
 
-admin.site.register(CompleteUserDetails, MyCompleteUserDetails)
 admin.site.register(UserDetails, MyUserAdmin)
-admin.site.register(Schemes, MySchemes)
+admin.site.register(Profile, MyProfile)
+admin.site.register(CompleteUserDetails, MyCompleteUserDetails)
 admin.site.register(Documents, MyDocuments)
+admin.site.register(Schemes, MySchemes)

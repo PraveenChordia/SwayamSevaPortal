@@ -1,15 +1,21 @@
+from django.contrib.auth.views import PasswordChangeForm
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.sites.shortcuts import get_current_site
+from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import EmailMessage
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.template.loader import render_to_string
+from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.decorators import login_required
-from SwayamSeva.forms import RegistrationForm, LoginForm, ApplicationForm
+from SwayamSeva.forms import RegistrationForm, LoginForm, \
+    ApplicationForm, UpdateUserForm, UpdateProfileForm, DocumentForm
 from SwayamSeva.IndirectUseFiles.doc_forms import *
-from SwayamSeva.models import CompleteUserDetails, UserDetails, Schemes
+from SwayamSeva.models import CompleteUserDetails, UserDetails, Schemes, Profile
 from SwayamSeva.IndirectUseFiles.token import account_activation_token
 from SwayamSevaPortal import settings
 
@@ -192,9 +198,70 @@ def return_view(request, context):
 
 @login_required
 def profile_view(request):
-    context = {}
-    if request.user.is_authenticated:
-        context['user'] = UserDetails.objects.get(username=request.user.username)
-        return render(request, 'profile.html', context)
-    else:
-        return redirect('login')
+    user = UserDetails.objects.get(username=request.user.username)
+    try:
+        udid = user.CUD_set.UDid
+        cuduser = CompleteUserDetails.objects.get(Aadhaar=user)
+
+    except ObjectDoesNotExist:
+        cuduser = None
+    default = {
+        'Aadhaar': request.user.username,
+        'F_name': request.user.first_name,
+        'L_name': request.user.last_name
+    }
+    profile = Profile.objects.get(user=request.user.username)
+    user_form = UpdateUserForm(instance=request.user)
+    profile_form = UpdateProfileForm(instance=profile)
+    password_form = PasswordChangeForm(user=request.user)
+    all_details_form = ApplicationForm(initial=default, instance=cuduser)
+    context = {'user_form': user_form, 'profile_form': profile_form, 'password_form': password_form,
+               'Application_form': all_details_form}
+
+    if request.method == 'POST':
+        print(request.POST)
+        if 'update_profile' in request.POST:
+            user_form = UpdateUserForm(request.POST, instance=request.user)
+            profile = Profile.objects.get(user=request.user.username)
+            profile_form = UpdateProfileForm(request.POST, request.FILES, instance=profile)
+            if user_form.is_valid() and profile_form.is_valid():
+                user_form.save()
+                profile_form.save()
+                messages.success(request, 'Your profile is updated successfully')
+                context['user_form'] = user_form
+                context['profile_form'] = profile_form
+                return render(request, 'profile.html', context)
+            else:
+                context['user_form'] = user_form
+                context['profile_form'] = profile_form
+                return redirect('profile', context)
+
+        if 'update_password' in request.POST:
+            password_form = PasswordChangeForm(user=request.user, data=request.POST)
+            if password_form.is_valid():
+                user = password_form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, 'Your Password is updated successfully')
+                context['password_form'] = password_form
+                return redirect('profile', context)
+            else:
+                context['password_form'] = password_form
+                messages.error(request, 'Your password is not updated')
+                return redirect('profile', context)
+
+        if 'update_all_details' in request.POST:
+            if cuduser:
+                all_details_form = ApplicationForm(request.POST, initial=default, instance=cuduser)
+
+            if all_details_form.is_valid():
+                user = all_details_form.save(commit=False, )
+                user.save()
+                context['Application_form'] = all_details_form
+                return render(request,'profile.html', context)
+            else:
+                context['Application_form'] = all_details_form
+                return render(request,'profile.html', context)
+
+        if 'update_documents' in request.POST:
+            pass
+    return render(request, 'profile.html', context)
