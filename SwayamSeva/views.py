@@ -193,10 +193,10 @@ def profile_view(request):
         docuser = Documents.objects.create(Uid=request.user)
 
     try:
-        scheme_appications = Schemes.objects.all().prefetch_related('Aadhaar')
+        scheme_applications = Schemes.objects.filter(Aadhaar=request.user.username)
         msg = None
     except:
-        scheme_appications = None
+        scheme_applications = None
         msg = 'You have Not applied to any scheme'
         pass
     default = {
@@ -214,7 +214,7 @@ def profile_view(request):
     docform = DocumentForm(initial=doc_default, instance=docuser)
     context = {'user_form': user_form, 'profile_form': profile_form, 'password_form': password_form,
                'Application_form': all_details_form, 'docform': docform, 'profile_pic': profile,
-               'scheme_applications': scheme_appications, 'Message': msg}
+               'scheme_applications': scheme_applications, 'Message': msg}
 
     if request.method == 'POST':
         if 'update_profile' in request.POST:
