@@ -3,8 +3,8 @@ from SwayamSeva.models import Documents
 from SwayamSeva.models import CompleteUserDetails
 
 requirements = {
-    'MNREGA': ('Uid', 'Ration_no', 'Mobile_no', 'Bank_Acc_no', 'IFSC_Code',
-               'MICR_Code', 'Bank', 'Branch'),
+    'MGNREGA': ('Uid', 'Ration_no', 'Mobile_no', 'Bank_Acc_no', 'IFSC_Code',
+                'MICR_Code', 'Bank', 'Branch'),
     'PMJDY': ('Uid', 'Mobile_no',),
     'SSA': ('Uid', 'Mobile_no',),
     'APY': ('Uid', 'Voter_id', 'Mobile_no', 'Bank_Acc_no', 'IFSC_Code',
@@ -15,18 +15,11 @@ requirements = {
 }
 
 
-class defForm(forms.Form):
-    Name = forms.CharField(max_length=150, disabled=True)
-    Aadhaar = forms.CharField(max_length=12, disabled=True)
-
-
 class docMGNREGA(forms.ModelForm):
-    Uid = forms.ModelChoiceField(queryset=CompleteUserDetails.objects.all(), widget=forms.HiddenInput, disabled=True,
-                                 label='')
-
+    Uid = forms.CharField(disabled=True, label='Aadhaar')
     class Meta:
         model = Documents
-        fields = requirements['MNREGA']
+        fields = requirements['MGNREGA']
 
     def clean(self):
         if self.is_valid():
@@ -36,8 +29,7 @@ class docMGNREGA(forms.ModelForm):
 
 
 class docPMJDY(forms.ModelForm):
-    Uid = forms.ModelChoiceField(queryset=CompleteUserDetails.objects.all(), widget=forms.HiddenInput, disabled=True,
-                                 label='')
+    Uid = forms.CharField(disabled=True, label='Aadhaar')
 
     class Meta:
         model = Documents
@@ -51,8 +43,7 @@ class docPMJDY(forms.ModelForm):
 
 
 class docSSA(forms.ModelForm):
-    Uid = forms.ModelChoiceField(queryset=CompleteUserDetails.objects.all(), widget=forms.HiddenInput, disabled=True,
-                                 label='')
+    Uid = forms.CharField(disabled=True, label='Aadhaar')
 
     class Meta:
         model = Documents
@@ -66,8 +57,7 @@ class docSSA(forms.ModelForm):
 
 
 class docAPY(forms.ModelForm):
-    Uid = forms.ModelChoiceField(queryset=CompleteUserDetails.objects.all(), widget=forms.HiddenInput, disabled=True,
-                                 label='')
+    Uid = forms.CharField(disabled=True, label='Aadhaar')
 
     class Meta:
         model = Documents
@@ -81,8 +71,7 @@ class docAPY(forms.ModelForm):
 
 
 class docBY(forms.ModelForm):
-    Uid = forms.ModelChoiceField(queryset=CompleteUserDetails.objects.all(), widget=forms.HiddenInput, disabled=True,
-                                 label='')
+    Uid = forms.CharField(disabled=True, label='Aadhaar')
 
     class Meta:
         model = Documents
@@ -96,8 +85,7 @@ class docBY(forms.ModelForm):
 
 
 class docPDS(forms.ModelForm):
-    Uid = forms.ModelChoiceField(queryset=CompleteUserDetails.objects.all(), widget=forms.HiddenInput, disabled=True,
-                                 label='')
+    Uid = forms.CharField(disabled=True, label='Aadhaar')
 
     class Meta:
         model = Documents

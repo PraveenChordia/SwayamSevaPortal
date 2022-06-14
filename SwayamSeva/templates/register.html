@@ -13,7 +13,7 @@
     <form method="POST" class="form-signin" , enctype="multipart/form-data">
         <h3 class="h mb-3 fw-normal" style="color: darkblue">Registration</h3>
         {% csrf_token %}
-        {% for field in form %}
+        {% for field in registration_form %}
             <div class="form-floating">
                 {% render_field field class="form-control" %}
                 <label class="form-floating" for="{{ field.id_for_label }}">{{ field.label }}</label>
@@ -23,7 +23,7 @@
             </div>
 
         {% endfor %}
-        {% for field in form.non_field_errors %}
+        {% for field in registration_form.non_field_errors %}
             <p style="color: red;">{{ field }}</p>
         {% endfor %}
         <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>

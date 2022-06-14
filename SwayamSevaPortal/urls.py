@@ -45,7 +45,7 @@ urlpatterns = [
     path('submitdoc/<scheme>', docs_view, name='docs'),
     path('return/<context>', return_view, name='return'),
     path('profile', profile_view, name='profile'),
-    url('activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/', activate_view,
+    path('activate/<uidb64>/<token>/', activate_view,
          name='activate'),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
@@ -57,7 +57,7 @@ urlpatterns = [
 
     path('password_change/',
          auth_views.PasswordChangeView.as_view(
-             template_name='registration/password_change.html'),
+             template_name='profile.html'),
          name='password_change'),
 
     path('email_sent/done/',
@@ -70,15 +70,15 @@ urlpatterns = [
              template_name='registration/password_reset_complete.html'),
          name='password_reset_complete'),
 
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='registration/set_password.html'), name='password_reset_confirm'),
+    path('reset/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(template_name='registration/set_password.html'),
+         name='password_reset_confirm'),
 
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
-
-
 ]
+
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 admin.site.site_header = 'SwayamSevaPortal Admin Panel'
 admin.site.site_title = 'SwayamSevaPortal Admin'
 admin.site.index_title = 'SSA Admin'
-

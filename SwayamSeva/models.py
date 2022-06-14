@@ -1,3 +1,5 @@
+import os.path
+
 from PIL import Image
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, \
@@ -43,7 +45,7 @@ class UserDetails(AbstractBaseUser, PermissionsMixin):
 
 class Profile(models.Model):
     user = models.OneToOneField(UserDetails, related_name='profile', on_delete=models.CASCADE)
-    avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
+    avatar = models.ImageField(default='default.jpg', upload_to='profile_images/')
 
     def __str__(self):
         return self.user.username

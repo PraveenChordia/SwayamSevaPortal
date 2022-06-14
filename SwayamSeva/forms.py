@@ -54,13 +54,23 @@ class ApplicationForm(forms.ModelForm):
 
 
 class DocumentForm(forms.ModelForm):
-    Uid = forms.ModelChoiceField(queryset=UserDetails.objects.all(), widget=forms.HiddenInput, disabled=True,
-                                 label='')
+    Uid = forms.CharField(max_length=12, disabled=True, label='Aadhaar')
+    Pan_no = forms.CharField(required=False)
+    BPL_no = forms.CharField(required=False)
+    Ration_no = forms.CharField(required=False)
+    Mobile_no = forms.CharField(required=False)
+    Voter_id = forms.CharField(required=False)
+    Electricity_bill = forms.CharField(required=False)
+    Bank_Acc_no = forms.CharField(required=False)
+    IFSC_Code = forms.CharField(required=False)
+    MICR_Code = forms.CharField(required=False)
+    Bank = forms.CharField(required=False)
+    Branch = forms.CharField(required=False)
 
     class Meta:
         model = Documents
-        fields = ['Pan_no', 'BPL_no', 'Ration_no', 'Mobile_no', 'Voter_id', 'Electricity_bill',
-                  'Bank_Acc_no', 'IFSC_Code', 'MICR_Code', 'Bank', 'Branch', 'Uid']
+        fields = ['Uid', 'Pan_no', 'BPL_no', 'Ration_no', 'Mobile_no', 'Voter_id', 'Electricity_bill',
+                  'Bank_Acc_no', 'IFSC_Code', 'MICR_Code', 'Bank', 'Branch']
 
 
 class UpdateUserForm(forms.ModelForm):
