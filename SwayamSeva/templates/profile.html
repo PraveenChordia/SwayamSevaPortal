@@ -146,32 +146,26 @@
                         <form method="POST" class="post-form" , enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="row">
-                                {% for fields in defform %}
+                                {% for field in docform %}
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            {% render_field fields class="form-control" %}
-                                            <label class="form-floating"
-                                                   for="{{ fields.id_for_label }}">{{ fields.label }}</label>
+                                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                            {% render_field field class="form-control" %}
+
+                                            {% for error in field.errors %}
+                                                <p style="color: red;">{{ error }}</p>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 {% endfor %}
-                                {% for field in form %}
-                                    <div class="form-floating">
-                                        {% render_field field class="form-control" %}
-                                        <label class="form-floating"
-                                               for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                        {% for error in field.errors %}
-                                            <p style="color: red;">{{ error }}</p>
-                                        {% endfor %}
-                                    </div>
-                                {% endfor %}
-                                {% for error in form.non_field_errors %}
+                                {% for error in docform.non_field_errors %}
                                     <p style="color: red;">{{ error }}</p>
                                 {% endfor %}
                             </div>
                             <div>
-                                <button class="btn btn-primary" name="update_documents">Update Documents</button>
-                                <button class="btn btn-light">Cancel</button>
+                                <button type="submit" class="btn btn-primary" name="update_documents">Update Documents
+                                </button>
+                                <button type="reset" class="btn btn-light">Cancel</button>
                             </div>
                         </form>
                     </div>

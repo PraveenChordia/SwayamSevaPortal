@@ -70,6 +70,7 @@ def activate_view(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
+        Profile.objects.create(user=request.user.username)
         msg = '''Thank you for your email confirmation. 
         Now you can login your account.'''
         context['notice'] = msg
@@ -198,25 +199,32 @@ def return_view(request, context):
 
 @login_required
 def profile_view(request):
-    user = UserDetails.objects.get(username=request.user.username)
     try:
-        udid = user.CUD_set.UDid
-        cuduser = CompleteUserDetails.objects.get(Aadhaar=user)
-
+        username = request.user.username
+        cuduser = CompleteUserDetails.objects.get(Aadhaar=username)
     except ObjectDoesNotExist:
         cuduser = None
+    try:
+        username = request.user.username
+        docuser = Documents.objects.get(Uid=username)
+    except ObjectDoesNotExist:
+        docuser = None
+
     default = {
         'Aadhaar': request.user.username,
         'F_name': request.user.first_name,
-        'L_name': request.user.last_name
+        'L_name': request.user.last_name,
     }
+    doc_default = {'Uid': request.user.username}
+
     profile = Profile.objects.get(user=request.user.username)
     user_form = UpdateUserForm(instance=request.user)
     profile_form = UpdateProfileForm(instance=profile)
     password_form = PasswordChangeForm(user=request.user)
     all_details_form = ApplicationForm(initial=default, instance=cuduser)
+    docform = DocumentForm(initial=doc_default, instance=docuser)
     context = {'user_form': user_form, 'profile_form': profile_form, 'password_form': password_form,
-               'Application_form': all_details_form}
+               'Application_form': all_details_form, 'docform': docform}
 
     if request.method == 'POST':
         print(request.POST)
@@ -260,8 +268,18 @@ def profile_view(request):
                 return render(request,'profile.html', context)
             else:
                 context['Application_form'] = all_details_form
-                return render(request,'profile.html', context)
+                return render(request, 'profile.html', context)
 
         if 'update_documents' in request.POST:
-            pass
+            if docuser:
+                docform = DocumentForm(request.POST, initial=doc_default, instance=docuser)
+
+            if docform.is_valid():
+                form = docform.save(commit=False)
+                form.save()
+                context['docform'] = docform
+                return render(request, 'profile.html', context)
+            else:
+                context['docform'] = docform
+                return render(request, 'profile.html', context)
     return render(request, 'profile.html', context)

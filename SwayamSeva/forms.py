@@ -7,7 +7,7 @@ from SwayamSeva.IndirectUseFiles.aValidate import Validate
 
 class RegistrationForm(UserCreationForm):
     username = forms.CharField(max_length=12, help_text='Required. Enter a valid Aadhaar', label='Aadhaar')
-    email = forms.EmailField(max_length=127, help_text='Required. Enter a valid Email')
+    EMAIL = forms.EmailField(max_length=127, help_text='Required. Enter a valid Email')
 
     class Meta:
         model = UserDetails
@@ -54,12 +54,13 @@ class ApplicationForm(forms.ModelForm):
 
 
 class DocumentForm(forms.ModelForm):
-    Uid = forms.ModelChoiceField(queryset=CompleteUserDetails.objects.all(), widget=forms.HiddenInput, disabled=True,
+    Uid = forms.ModelChoiceField(queryset=UserDetails.objects.all(), widget=forms.HiddenInput, disabled=True,
                                  label='')
 
     class Meta:
         model = Documents
-        fields = '__all__'
+        fields = ['Pan_no', 'BPL_no', 'Ration_no', 'Mobile_no', 'Voter_id', 'Electricity_bill',
+                  'Bank_Acc_no', 'IFSC_Code', 'MICR_Code', 'Bank', 'Branch', 'Uid']
 
 
 class UpdateUserForm(forms.ModelForm):
@@ -70,7 +71,7 @@ class UpdateUserForm(forms.ModelForm):
 
     class Meta:
         model = UserDetails
-        fields = ['username', 'EMAIL', 'first_name', 'last_name',]
+        fields = ['username', 'EMAIL', 'first_name', 'last_name', ]
 
 
 class UpdateProfileForm(forms.ModelForm):

@@ -46,7 +46,7 @@ class Profile(models.Model):
     avatar = models.ImageField(default='default.jpg', upload_to='profile_images')
 
     def __str__(self):
-        return self.pro_user.username
+        return self.user.username
 
     # resizing images
     def save(self, *args, **kwargs):
