@@ -6,7 +6,7 @@
 
     <div class="form-signin">
         <h3 class="h mb-3 fw-normal">You are applying for {{ scheme }}</h3>
-        <div class="form-floating form-control">{{ Name }}'s Details</div>
+        <div class="form-floating form-control">{{ Name }}'s Documents</div>
         <form method="POST" class="post-form" , enctype="multipart/form-data">
             {% csrf_token %}
             {% for field in docform %}
@@ -19,7 +19,7 @@
                 </div>
             {% endfor %}
             {% for error in docform.non_field_errors %}
-                    <p style="color: red;">{{ error }}</p>
+                <p style="color: red;">{{ error }}</p>
             {% endfor %}
             <button type="submit" class="w-100 btn btn-lg btn-success">Submit</button>
         </form>

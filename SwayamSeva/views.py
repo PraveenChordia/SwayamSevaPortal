@@ -144,11 +144,14 @@ def docs_view(request, scheme):
                    'Aadhaar': request.user.username, 'scheme': scheme, 'Message': None}
         formfunc = 'doc' + scheme
 
+        if Schemes.objects.filter(Scheme_Name=scheme, Aadhaar=request.user):
+            msg = f'''You Hava already Applied for the {scheme} scheme.'''
+            context['notice'] = msg
+            return render(request, 'notice.html', context)
+
         if request.POST:
             doc_form = globals()[formfunc](request.POST, instance=docuser)
-            print(doc_form)
             if doc_form.is_valid():
-                print('valid')
                 application = doc_form.save(commit=False)
                 try:
                     savescheme = Schemes.objects.create(Scheme_Name=scheme, Aadhaar=user)
