@@ -13,6 +13,19 @@
 <head>
     <title>Swayam Seva Platform</title>
     {% include 'snippets/header.html' %}
+    <section>
+        {% if messages %}
+
+            <div class="alert alert-dismissible" role="alert">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+    </section>
 </head>
 <body>
 <div class="main">
@@ -20,16 +33,6 @@
 
     {% endblock content %}
 </div>
-{% if messages %}
-    <div class="alert alert-dismissible" role="alert">
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-        {% endfor %}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-{% endif %}
 {% include 'snippets/footer.html' %}
 </body>
 </html>
