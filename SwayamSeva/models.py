@@ -51,16 +51,16 @@ class Profile(models.Model):
         return self.user.username
 
     # resizing images
-    def save(self, *args, **kwargs):
+    '''def save(self, *args, **kwargs):
         super().save()
 
-        img = Image.open(self.avatar)
+        img = Image.open(self.avatar.url)
 
         if img.height > 100 or img.width > 100:
             new_img = (100, 100)
             img.thumbnail(new_img)
-            img.save(self.avatar.path)
-
+            img.save(self.avatar.url)
+    '''
 
 class CompleteUserDetails(models.Model):
     Sex = (
