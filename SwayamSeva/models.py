@@ -45,7 +45,7 @@ class UserDetails(AbstractBaseUser, PermissionsMixin):
 
 class Profile(models.Model):
     user = models.OneToOneField(UserDetails, related_name='profile', on_delete=models.CASCADE)
-    avatar = models.ImageField(default='default.jpg', upload_to='profile_images/')
+    avatar = models.ImageField(default='default_amn3b2.jpg', upload_to='profile_images/')
 
     def __str__(self):
         return self.user.username

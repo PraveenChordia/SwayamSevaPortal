@@ -230,6 +230,7 @@ def profile_view(request):
                 messages.success(request, 'Your profile is updated successfully')
                 context['user_form'] = user_form
                 context['profile_form'] = profile_form
+                context['profile_pic'] = Profile.objects.get(user=request.user)
                 return render(request, 'profile.html', context)
             else:
                 messages.error(request, "Profile Couldn't be updated.")

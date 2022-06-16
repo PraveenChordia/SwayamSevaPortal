@@ -122,8 +122,11 @@ USE_TZ = True
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': os.environ.get('cloud_name'),
     'API_KEY': os.environ.get('api_key'),
-    'API_SECRET': os.environ.get('api_secret')
+    'API_SECRET': os.environ.get('api_secret'),
+    'EXCLUDE_DELETE_ORPHANED_MEDIA_PATHS': ()
 }
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
